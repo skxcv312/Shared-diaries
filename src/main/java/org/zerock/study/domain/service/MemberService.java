@@ -7,35 +7,36 @@ import org.zerock.study.domain.DTO.SigninRequest;
 import org.zerock.study.domain.DTO.SignupRequest;
 import org.zerock.study.domain.entity.Members;
 import org.zerock.study.domain.repository.MemberRepo;
+import org.zerock.study.global.util.HashUtils;
 
 @RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepo memberRepo;
-    //
-    public void signup(SignupRequest signupRequest) {
-        if(memberRepo.existsByEmail(signupRequest.email())){
+
+    // 회원가입
+    public Members signup(SignupRequest signupRequest) {
+        if (memberRepo.existsByEmail(signupRequest.email())) {
             throw new IllegalArgumentException("Email already in use");
         }
+        // 비밀번호 해쉬화
+        String hashedPassword = HashUtils.hashPassword(signupRequest.password());
         Members members = Members.builder()
                 .email(signupRequest.email())
-                .password(signupRequest.password())
-                .name(signupRequest.name())
+                .password(hashedPassword)
                 .build();
 
-        memberRepo.save(members);
+        return memberRepo.save(members);
     }
 
+    // 로그인
     public Members signin(SigninRequest signinRequest) {
-        boolean isEmailExist = memberRepo.existsByEmail(signinRequest.email());
-        if(!isEmailExist){
+        Members members = memberRepo.findMembersByEmail(signinRequest.email());
+        if (members == null) {
             throw new IllegalArgumentException("Email not exist");
         }
-
-        Members members = memberRepo.findMembersByEmailAndPassword(signinRequest.email(), signinRequest.password());
-
-        if(members == null){
-            throw new IllegalArgumentException("Member not exist");
+        if (!HashUtils.matchPassword(signinRequest.password(), members.getPassword())) {
+            throw new IllegalArgumentException("Invalid password");
         }
 
         return members;
@@ -44,7 +45,7 @@ public class MemberService {
     // 회원 탈퇴
     public void unsubscript(String email) {
         Members members = memberRepo.findMembersByEmail(email);
-        if(members == null){
+        if (members == null) {
             throw new IllegalArgumentException("Email not exist");
         }
         memberRepo.delete(members);
