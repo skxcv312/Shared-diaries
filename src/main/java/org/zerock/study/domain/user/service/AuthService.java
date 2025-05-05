@@ -3,15 +3,15 @@ package org.zerock.study.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.zerock.study.domain.DTO.SigninRequest;
-import org.zerock.study.domain.DTO.SignupRequest;
+import org.zerock.study.domain.user.DTO.SigninRequest;
+import org.zerock.study.domain.user.DTO.SignupRequest;
 import org.zerock.study.domain.entity.Members;
 import org.zerock.study.domain.repository.MemberRepo;
 import org.zerock.study.global.util.HashUtils;
 
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class AuthService {
     private final MemberRepo memberRepo;
 
     // 회원가입

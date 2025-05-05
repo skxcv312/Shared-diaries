@@ -1,4 +1,4 @@
-package org.zerock.study.domain.DTO;
+package org.zerock.study.domain.user.DTO;
 
 import lombok.Builder;
 

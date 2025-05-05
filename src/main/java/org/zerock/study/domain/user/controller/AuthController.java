@@ -1,33 +1,33 @@
-package org.zerock.study.domain.controller;
+package org.zerock.study.domain.user.controller;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.study.domain.DTO.SigninRequest;
-import org.zerock.study.domain.DTO.SignupRequest;
-import org.zerock.study.domain.entity.Members;
-import org.zerock.study.domain.service.MemberService;
+import org.zerock.study.domain.user.DTO.RefreshRequest;
+import org.zerock.study.domain.user.DTO.SigninRequest;
+import org.zerock.study.domain.user.DTO.SignupRequest;
+import org.zerock.study.domain.user.service.AuthService;
+import org.zerock.study.global.jwtToken.JwtTokenDTO;
 
 @RestController()
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class MemberController {
-    private final MemberService memberService;
+public class AuthController {
+    private final AuthService authService;
 
     // 로그인
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SigninRequest signinRequest) {
-        Members members = memberService.signin(signinRequest);
-        return ResponseEntity.ok(members);
+        JwtTokenDTO jwtTokenDTO = authService.signin(signinRequest);
+        return ResponseEntity.ok(jwtTokenDTO);
     }
 
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupRequest signupRequest) {
 
-        Members members = memberService.signup(signupRequest);
-        return ResponseEntity.ok(members);
+        JwtTokenDTO jwtTokenDTO = authService.signup(signupRequest);
+        return ResponseEntity.ok(jwtTokenDTO);
     }
 
     // 로그아웃
