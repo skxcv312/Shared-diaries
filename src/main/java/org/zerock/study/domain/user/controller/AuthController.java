@@ -38,8 +38,9 @@ public class AuthController {
 
     // 리프레쉬토큰 발급
     @PostMapping("/refresh")
-    public ResponseEntity<?> refresh() {
-        return null;
+    public ResponseEntity<?> refresh(@RequestBody RefreshRequest refreshRequest) {
+        JwtTokenDTO jwtTokenDTO = authService.getJwtToken(refreshRequest.refreshToken());
+        return ResponseEntity.ok(jwtTokenDTO);
     }
 
 
