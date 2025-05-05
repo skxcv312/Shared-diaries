@@ -5,28 +5,25 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.zerock.study.global.BaseTimeEntity;
 
 @Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "members")
-public class Members {
+public class Members extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Builder
-    public Members(String name, String password, String email) {
-        this.name = name;
+    public Members(String password, String email) {
         this.password = password;
         this.email = email;
     }

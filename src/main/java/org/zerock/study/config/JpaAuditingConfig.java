@@ -1,4 +1,4 @@
-package org.zerock.study.global;
+package org.zerock.study.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

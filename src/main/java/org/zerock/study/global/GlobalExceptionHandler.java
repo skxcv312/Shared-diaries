@@ -11,17 +11,24 @@ public class GlobalExceptionHandler {
     record ErrorDTO(
             String exception,
             String message
-    ){}
+    ) {
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<?> illegalArgument(IllegalArgumentException e){
+    public ResponseEntity<?> illegalArgument(IllegalArgumentException e) {
 
         return ResponseEntity.badRequest()
                 .body(new ErrorDTO("IllegalArgumentException", e.getMessage()));
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> runtimeException(RuntimeException e) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorDTO("RuntimeException", e.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> exception(Exception e){
+    public ResponseEntity<?> exception(Exception e) {
         return ResponseEntity.internalServerError()
                 .body(new ErrorDTO("Exception", e.getMessage()));
 

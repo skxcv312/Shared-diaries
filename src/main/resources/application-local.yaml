@@ -15,5 +15,5 @@ spring:
 
 logging:
   level:
-    org.zerock.study : info
+    org.zerock.study: debug
     org.hibernate.sql: debug
