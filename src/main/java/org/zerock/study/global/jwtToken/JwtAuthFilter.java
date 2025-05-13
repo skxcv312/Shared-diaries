@@ -1,5 +1,7 @@
 package org.zerock.study.global.jwtToken;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,8 +49,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
 
-        } catch (Exception e) {
+        } catch (ExpiredJwtException e) { // 토큰 기간이 만료 되었을 경우
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().println(e.getMessage());
+
+        } catch (JwtException e) { // 토큰의 유효성 에러
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().println(e.getMessage());
+
+        } catch (Exception e) { // 포괄적인 에러
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().println(e.getMessage());
         } finally {
             MemberContext.clear();
         }

@@ -72,9 +72,6 @@ public class JwtTokenProvider {
     // 토큰에서 회원 이메일 정보 추출
     public String getUserInfo(String token) {
         Claims claims = validateToken(token);
-        if (claims.getSubject() == null) {
-            throw new IllegalArgumentException("user not found");
-        }
         return claims.getSubject();
     }
 
@@ -101,9 +98,16 @@ public class JwtTokenProvider {
         String accessToken = token.accessToken();
         String refreshToken = token.refreshToken();
 
+        // Refresh Token 쿠키로 설정
+        ResponseCookie cookie = setTokenToCookie(
+                "refreshToken",
+                refreshToken,
+                jwtConfig.getRefreshTokenValidTime()
+        );
+
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken); // Authorization 헤더에 토큰 추가
-        responseHeaders.set("RefreshToken", refreshToken);
+        responseHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
 
         return responseHeaders;
     }
