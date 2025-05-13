@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.zerock.study.domain.user.DTO.SigninRequest;
 import org.zerock.study.domain.user.DTO.SignupRequest;
-import org.zerock.study.domain.entity.Members;
+import org.zerock.study.domain.entity.MembersEntity;
 import org.zerock.study.domain.repository.MemberRepo;
 import org.zerock.study.global.jwtToken.JwtTokenDTO;
 import org.zerock.study.global.jwtToken.JwtTokenProvider;
@@ -24,34 +24,34 @@ public class AuthService {
         }
         // 비밀번호 해쉬화
         String hashedPassword = HashUtils.hashPassword(signupRequest.password());
-        Members members = Members.builder()
+        MembersEntity membersEntity = MembersEntity.builder()
                 .email(signupRequest.email())
                 .password(hashedPassword)
                 .build();
 
-        memberRepo.save(members);
-        return jwtTokenProvider.createToken(members);
+        memberRepo.save(membersEntity);
+        return jwtTokenProvider.createToken(membersEntity);
     }
 
     // 로그인
     public JwtTokenDTO signin(SigninRequest signinRequest) {
-        Members members = memberRepo.findMembersByEmail(signinRequest.email());
-        if (members == null) {
+        MembersEntity membersEntity = memberRepo.findMembersByEmail(signinRequest.email());
+        if (membersEntity == null) {
             throw new IllegalArgumentException("Email not exist");
         }
-        if (!HashUtils.matchPassword(signinRequest.password(), members.getPassword())) {
+        if (!HashUtils.matchPassword(signinRequest.password(), membersEntity.getPassword())) {
             throw new IllegalArgumentException("Invalid password");
         }
-        return jwtTokenProvider.createToken(members);
+        return jwtTokenProvider.createToken(membersEntity);
     }
 
     // 회원 탈퇴
     public void unsubscript(String email) {
-        Members members = memberRepo.findMembersByEmail(email);
-        if (members == null) {
+        MembersEntity membersEntity = memberRepo.findMembersByEmail(email);
+        if (membersEntity == null) {
             throw new IllegalArgumentException("Email not exist");
         }
-        memberRepo.delete(members);
+        memberRepo.delete(membersEntity);
     }
 
     // 새로운 토큰 얻기

@@ -11,7 +11,7 @@ import org.zerock.study.global.BaseTimeEntity;
 @Entity
 @NoArgsConstructor
 @Table(name = "members")
-public class Members extends BaseTimeEntity {
+public class MembersEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,11 +19,11 @@ public class Members extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Builder
-    public Members(String password, String email) {
+    public MembersEntity(String password, String email) {
         this.password = password;
         this.email = email;
     }

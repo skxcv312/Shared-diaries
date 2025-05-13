@@ -11,7 +11,7 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.zerock.study.domain.entity.Members;
+import org.zerock.study.domain.entity.MembersEntity;
 
 @Component
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
             String token = bearer.substring(BEARER_PREFIX.length()).trim();
-            Members member = jwtTokenProvider.getAuthentication(token);
+            MembersEntity member = jwtTokenProvider.getAuthentication(token);
             MemberContext.set(member);
 
             filterChain.doFilter(request, response);

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseCookie;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import org.zerock.study.config.JwtConfig;
-import org.zerock.study.domain.entity.Members;
+import org.zerock.study.domain.entity.MembersEntity;
 import org.zerock.study.domain.repository.MemberRepo;
 import org.zerock.study.global.util.JsonUtils;
 
@@ -24,7 +24,7 @@ public class JwtTokenProvider {
     private final JwtConfig jwtConfig;
     private final JsonUtils jsonUtils;
 
-    private String setAccessToken(Members user) {
+    private String setAccessToken(MembersEntity user) {
         Date now = new Date();
         String userJson = jsonUtils.toJson(user);
 
@@ -38,7 +38,7 @@ public class JwtTokenProvider {
     }
 
 
-    private String setRefreshToken(Members user) {
+    private String setRefreshToken(MembersEntity user) {
         Date now = new Date();
         return Jwts.builder()
                 .subject(user.getEmail())
@@ -49,7 +49,7 @@ public class JwtTokenProvider {
     }
 
     // 토큰 생성
-    public JwtTokenDTO createToken(Members user) {  // userPK = email
+    public JwtTokenDTO createToken(MembersEntity user) {  // userPK = email
 
         String accessToken = setAccessToken(user);
         String refreshToken = setRefreshToken(user);
@@ -59,12 +59,12 @@ public class JwtTokenProvider {
     // 리프레시토큰으로 엑세스토큰얻기
     public JwtTokenDTO getTokenWithRefresh(String refreshToken) {
         String userEmail = getUserInfo(refreshToken);
-        Members user = memberRepo.findMembersByEmail(userEmail);
+        MembersEntity user = memberRepo.findMembersByEmail(userEmail);
         return createToken(user);
     }
 
     // 인증 정보 조회
-    public Members getAuthentication(String token) {
+    public MembersEntity getAuthentication(String token) {
         String userEmail = getUserInfo(token);
         return memberRepo.findMembersByEmail(userEmail);
     }
