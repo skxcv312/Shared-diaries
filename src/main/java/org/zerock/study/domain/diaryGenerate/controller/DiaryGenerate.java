@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.study.domain.diaryGenerate.DTO.request.generateDiaryRequest;
+import org.zerock.study.domain.diaryGenerate.DTO.request.GenerateDiaryRequest;
+import org.zerock.study.domain.diaryGenerate.DTO.response.GenerateDiaryResponse;
 import org.zerock.study.domain.diaryGenerate.service.DiaryGenerateService;
 
 @RestController
@@ -16,7 +17,7 @@ public class DiaryGenerate {
     private final DiaryGenerateService diaryGenerateService;
 
     @PostMapping()
-    ResponseEntity<String> generateDiary(@RequestBody generateDiaryRequest request) {
+    ResponseEntity<?> generateDiary(@RequestBody GenerateDiaryRequest request) {
         String diary = request.content();
 
         String CompletedSeries = diaryGenerateService.completeDiaryIntegration(diary);

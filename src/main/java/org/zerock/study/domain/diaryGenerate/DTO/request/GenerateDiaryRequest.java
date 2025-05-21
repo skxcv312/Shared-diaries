@@ -1,6 +1,6 @@
 package org.zerock.study.domain.diaryGenerate.DTO.request;
 
-public record generateDiaryRequest(
+public record GenerateDiaryRequest(
         String content
 ) {
 }
