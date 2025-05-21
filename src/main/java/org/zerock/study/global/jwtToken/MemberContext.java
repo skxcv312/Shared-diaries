@@ -1,6 +1,6 @@
 package org.zerock.study.global.jwtToken;
 
-import org.zerock.study.domain.entity.MembersEntity;
+import org.zerock.study.domain.auth.entity.MembersEntity;
 
 public class MemberContext {
     private static final ThreadLocal<MembersEntity> loginMember = new ThreadLocal<>();
