@@ -3,8 +3,8 @@ package org.zerock.study.domain.service;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.zerock.study.domain.auth.DTO.SigninRequest;
-import org.zerock.study.domain.auth.DTO.SignupRequest;
+import org.zerock.study.domain.auth.DTO.request.SigninRequest;
+import org.zerock.study.domain.auth.DTO.request.SignupRequest;
 import org.zerock.study.domain.auth.repository.MemberRepo;
 import org.zerock.study.domain.auth.service.AuthService;
 

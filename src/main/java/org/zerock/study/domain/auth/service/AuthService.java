@@ -3,8 +3,8 @@ package org.zerock.study.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.zerock.study.domain.auth.DTO.SigninRequest;
-import org.zerock.study.domain.auth.DTO.SignupRequest;
+import org.zerock.study.domain.auth.DTO.request.SigninRequest;
+import org.zerock.study.domain.auth.DTO.request.SignupRequest;
 import org.zerock.study.domain.auth.entity.MembersEntity;
 import org.zerock.study.domain.auth.repository.MemberRepo;
 import org.zerock.study.global.jwtToken.JwtTokenDTO;

@@ -1,4 +1,4 @@
-package org.zerock.study.domain.auth.DTO;
+package org.zerock.study.domain.auth.DTO.response;
 
 public record SigningResponse(
         String accessToken,

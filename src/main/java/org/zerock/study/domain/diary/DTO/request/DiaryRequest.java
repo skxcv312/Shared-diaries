@@ -1,4 +1,4 @@
-package org.zerock.study.domain.diary.DTO;
+package org.zerock.study.domain.diary.DTO.request;
 
 
 import lombok.Builder;
