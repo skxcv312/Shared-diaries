@@ -54,7 +54,7 @@ class DiaryServiceTest {
 
         when(diaryRepo.save(any(DiaryEntity.class))).thenReturn(diaryEntity);
 
-        DiaryEntity savedDiary = diaryService.CreateDiary(membersEntity, request);
+        DiaryEntity savedDiary = diaryService.createDiary(membersEntity.getId(), request);
 
         assertNotNull(savedDiary);
         assertEquals("title1", savedDiary.getTitle());
@@ -69,7 +69,7 @@ class DiaryServiceTest {
         when(diaryRepo.findById(DIARY_ID)).thenReturn(Optional.of(diaryEntity));
         when(diaryRepo.save(any(DiaryEntity.class))).thenReturn(diaryEntity);
 
-        DiaryEntity updatedDiary = diaryService.UpdateDiary(membersEntity, DIARY_ID, request);
+        DiaryEntity updatedDiary = diaryService.updateDiary(membersEntity.getId(), DIARY_ID, request);
 
         assertNotNull(updatedDiary);
         assertEquals("editTitle", updatedDiary.getTitle());
@@ -81,7 +81,7 @@ class DiaryServiceTest {
     void 일기_삭제() {
         doNothing().when(diaryRepo).deleteById(DIARY_ID);
 
-        diaryService.DeleteDiary(DIARY_ID);
+        diaryService.deleteDiary(DIARY_ID);
 
         verify(diaryRepo, times(1)).deleteById(DIARY_ID);
     }
@@ -90,7 +90,7 @@ class DiaryServiceTest {
     void 유저_일기_조회() {
         when(diaryRepo.findByMembersEntityId(MEMBER_ID)).thenReturn(List.of(diaryEntity));
 
-        List<DiaryEntity> diaries = diaryService.findAllMyDiary(membersEntity);
+        List<DiaryEntity> diaries = diaryService.findAllMyDiary(membersEntity.getId());
 
         assertNotNull(diaries);
         assertEquals(1, diaries.size());
@@ -101,7 +101,7 @@ class DiaryServiceTest {
     void 유저_상세_일기_조회() {
         when(diaryRepo.findByMembersEntityIdAndId(MEMBER_ID, DIARY_ID)).thenReturn(diaryEntity);
 
-        DiaryEntity diary = diaryService.findMyDiary(membersEntity, DIARY_ID);
+        DiaryEntity diary = diaryService.findMyDiary(membersEntity.getId(), DIARY_ID);
 
         assertNotNull(diary);
         assertEquals("title1", diary.getTitle());

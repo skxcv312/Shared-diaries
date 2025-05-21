@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.study.domain.auth.repository.MemberRepo;
 import org.zerock.study.domain.diary.DTO.DiaryRequest.createDiaryRequest;
 import org.zerock.study.domain.diary.DTO.DiaryRequest.updateDiaryRequest;
 import org.zerock.study.domain.diary.entity.DiaryEntity;
@@ -18,6 +19,7 @@ import org.zerock.study.domain.diary.repository.DiaryRepo;
 @RequiredArgsConstructor
 public class DiaryService {
     private final DiaryRepo diaryRepo;
+    private final MemberRepo memberRepo;
 
     // 일기 상세 조회
     public DiaryEntity findDiaryById(Long id) {
@@ -26,13 +28,20 @@ public class DiaryService {
     }
 
     // 일기 삭제
-    public void DeleteDiary(Long id) {
+    public void deleteDiary(Long id) {
         diaryRepo.deleteById(id);
+    }
+
+    // 유저 찾기
+    public MembersEntity findMemberById(Long id) {
+        return memberRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Member Id is not exist"));
     }
 
 
     // 일기 추가
-    public DiaryEntity CreateDiary(MembersEntity membersEntity, createDiaryRequest newDiary) {
+    public DiaryEntity createDiary(Long userId, createDiaryRequest newDiary) {
+        MembersEntity membersEntity = findMemberById(userId);
         DiaryEntity diaryEntity = DiaryEntity.builder()
                 .title(newDiary.title())
                 .content(newDiary.content())
@@ -43,12 +52,12 @@ public class DiaryService {
     }
 
     // 일기 수정
-    public DiaryEntity UpdateDiary(MembersEntity membersEntity, Long DiaryId, updateDiaryRequest editDiary) {
+    public DiaryEntity updateDiary(Long userId, Long diaryId, updateDiaryRequest editDiary) {
         // 다이어리 찾기
-        DiaryEntity diaryEntity = findDiaryById(DiaryId);
+        DiaryEntity diaryEntity = findDiaryById(diaryId);
 
         // 일기 소유자 확인
-        if (!Objects.equals(diaryEntity.getMembersEntity().getId(), membersEntity.getId())) {
+        if (!Objects.equals(diaryEntity.getMembersEntity().getId(), userId)) {
             throw new RuntimeException("Different member IDs");
         }
 
@@ -61,13 +70,13 @@ public class DiaryService {
     }
 
     //유저 일기 조회
-    public List<DiaryEntity> findAllMyDiary(MembersEntity member) {
-        return diaryRepo.findByMembersEntityId(member.getId());
+    public List<DiaryEntity> findAllMyDiary(Long userId) {
+        return diaryRepo.findByMembersEntityId(userId);
     }
 
     // 유저 상세 일기 조회
-    public DiaryEntity findMyDiary(MembersEntity member, Long DiaryId) {
-        return diaryRepo.findByMembersEntityIdAndId(member.getId(), DiaryId);
+    public DiaryEntity findMyDiary(Long userId, Long diaryId) {
+        return diaryRepo.findByMembersEntityIdAndId(userId, diaryId);
     }
 
     // 공개 일기 조회

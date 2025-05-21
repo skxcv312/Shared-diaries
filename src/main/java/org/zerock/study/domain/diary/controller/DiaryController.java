@@ -17,6 +17,7 @@ import org.zerock.study.domain.diary.DTO.DiaryRequest.updateDiaryRequest;
 import org.zerock.study.domain.diary.Service.DiaryService;
 import org.zerock.study.domain.diary.entity.DiaryEntity;
 import org.zerock.study.domain.auth.entity.MembersEntity;
+import org.zerock.study.global.jwtToken.JwtTokenProvider.MemberTokenInfo;
 import org.zerock.study.global.jwtToken.MemberContext;
 
 @Log4j2
@@ -29,39 +30,43 @@ public class DiaryController {
     // 새로운 일기 생성
     @PostMapping("")
     public ResponseEntity<?> createDiary(@RequestBody createDiaryRequest createDiaryRequest) {
-        MembersEntity membersEntity = MemberContext.get();
-        DiaryEntity diaryEntity = diaryService.CreateDiary(membersEntity, createDiaryRequest);
+        MemberTokenInfo memberTokenInfo = MemberContext.get();
+        Long userId = memberTokenInfo.userId();
+        DiaryEntity diaryEntity = diaryService.createDiary(userId, createDiaryRequest);
         return ResponseEntity.ok(diaryEntity);
     }
 
     // 기존 일기 수정
     @PatchMapping("/{diaryId}")
     public ResponseEntity<?> editDiary(@PathVariable Long diaryId, @RequestBody updateDiaryRequest updateDiaryRequest) {
-        MembersEntity membersEntity = MemberContext.get();
-        DiaryEntity diaryEntity = diaryService.UpdateDiary(membersEntity, diaryId, updateDiaryRequest);
+        MemberTokenInfo memberTokenInfo = MemberContext.get();
+        Long userId = memberTokenInfo.userId();
+        DiaryEntity diaryEntity = diaryService.updateDiary(userId, diaryId, updateDiaryRequest);
         return ResponseEntity.ok(diaryEntity);
     }
 
     // 특정 일기 삭제
     @DeleteMapping("/{diaryId}")
     public ResponseEntity<?> removeDiary(@PathVariable Long diaryId) {
-        diaryService.DeleteDiary(diaryId);
+        diaryService.deleteDiary(diaryId);
         return ResponseEntity.ok().build();
     }
 
     // 내가 작성한 모든 일기 조회
     @GetMapping("/me")
     public ResponseEntity<?> getMyDiaries() {
-        MembersEntity membersEntity = MemberContext.get();
-        List<DiaryEntity> diaryEntityList = diaryService.findAllMyDiary(membersEntity);
+        MemberTokenInfo memberTokenInfo = MemberContext.get();
+        Long userId = memberTokenInfo.userId();
+        List<DiaryEntity> diaryEntityList = diaryService.findAllMyDiary(userId);
         return ResponseEntity.ok(diaryEntityList);
     }
 
     // 내가 작성한 특정 일기 조회
     @GetMapping("/me/{diaryId}")
     public ResponseEntity<?> getMyDiaryById(@PathVariable Long diaryId) {
-        MembersEntity membersEntity = MemberContext.get();
-        DiaryEntity diaryEntityList = diaryService.findMyDiary(membersEntity, diaryId);
+        MemberTokenInfo memberTokenInfo = MemberContext.get();
+        Long userId = memberTokenInfo.userId();
+        DiaryEntity diaryEntityList = diaryService.findMyDiary(userId, diaryId);
         return ResponseEntity.ok(diaryEntityList);
     }
 
