@@ -27,6 +27,7 @@ public class MembersEntity extends BaseTimeEntity {
     private String email;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 }
