@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.study.domain.diary.Service.DiaryService;
+import org.zerock.study.domain.diary.Service.ViewDiaryService;
 import org.zerock.study.domain.diary.entity.DiaryEntity;
 import org.zerock.study.global.jwtToken.JwtTokenProvider.MemberTokenInfo;
 import org.zerock.study.global.jwtToken.MemberContext;
@@ -16,7 +16,7 @@ import org.zerock.study.global.jwtToken.MemberContext;
 @RequiredArgsConstructor
 @RequestMapping("/diaries/me")
 public class ViewMyDiaryController {
-    final DiaryService diaryService;
+    private final ViewDiaryService viewDiaryService;
 
 
     // 내가 작성한 모든 일기 조회
@@ -24,7 +24,7 @@ public class ViewMyDiaryController {
     public ResponseEntity<?> getMyDiaries() {
         MemberTokenInfo memberTokenInfo = MemberContext.get();
         Long userId = memberTokenInfo.userId();
-        List<DiaryEntity> diaryEntityList = diaryService.findAllMyDiary(userId);
+        List<DiaryEntity> diaryEntityList = viewDiaryService.findAllMyDiary(userId);
         return ResponseEntity.ok(diaryEntityList);
     }
 
@@ -33,7 +33,7 @@ public class ViewMyDiaryController {
     public ResponseEntity<?> getMyDiaryById(@PathVariable Long diaryId) {
         MemberTokenInfo memberTokenInfo = MemberContext.get();
         Long userId = memberTokenInfo.userId();
-        DiaryEntity diaryEntityList = diaryService.findMyDiary(userId, diaryId);
+        DiaryEntity diaryEntityList = viewDiaryService.findMyDiary(userId, diaryId);
         return ResponseEntity.ok(diaryEntityList);
     }
 }

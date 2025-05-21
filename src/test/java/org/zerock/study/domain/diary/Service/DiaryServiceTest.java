@@ -29,6 +29,9 @@ class DiaryServiceTest {
     @InjectMocks
     private DiaryService diaryService;
 
+    @InjectMocks
+    private ViewDiaryService viewDiaryService;
+
     private MembersEntity membersEntity;
     private DiaryEntity diaryEntity;
 
@@ -90,7 +93,7 @@ class DiaryServiceTest {
     void 유저_일기_조회() {
         when(diaryRepo.findByMembersEntityId(MEMBER_ID)).thenReturn(List.of(diaryEntity));
 
-        List<DiaryEntity> diaries = diaryService.findAllMyDiary(membersEntity.getId());
+        List<DiaryEntity> diaries = viewDiaryService.findAllMyDiary(membersEntity.getId());
 
         assertNotNull(diaries);
         assertEquals(1, diaries.size());
@@ -101,7 +104,7 @@ class DiaryServiceTest {
     void 유저_상세_일기_조회() {
         when(diaryRepo.findByMembersEntityIdAndId(MEMBER_ID, DIARY_ID)).thenReturn(diaryEntity);
 
-        DiaryEntity diary = diaryService.findMyDiary(membersEntity.getId(), DIARY_ID);
+        DiaryEntity diary = viewDiaryService.findMyDiary(membersEntity.getId(), DIARY_ID);
 
         assertNotNull(diary);
         assertEquals("title1", diary.getTitle());
@@ -111,7 +114,7 @@ class DiaryServiceTest {
     void 공개_일기_조회() {
         when(diaryRepo.findByPublicOnIsTrue()).thenReturn(List.of(diaryEntity));
 
-        List<DiaryEntity> diaries = diaryService.findAllPublicDiary();
+        List<DiaryEntity> diaries = viewDiaryService.findAllPublicDiary();
 
         assertNotNull(diaries);
         assertEquals(1, diaries.size());
@@ -122,7 +125,7 @@ class DiaryServiceTest {
     void 공개_일기_상세_조회() {
         when(diaryRepo.findByPublicOnIsTrueAndId(DIARY_ID)).thenReturn(diaryEntity);
 
-        DiaryEntity diary = diaryService.findPublicDiary(DIARY_ID);
+        DiaryEntity diary = viewDiaryService.findPublicDiary(DIARY_ID);
 
         assertNotNull(diary);
         assertTrue(diary.getPublicOn());

@@ -68,24 +68,4 @@ public class DiaryService {
 
         return diaryRepo.save(diaryEntity);
     }
-
-    //유저 일기 조회
-    public List<DiaryEntity> findAllMyDiary(Long userId) {
-        return diaryRepo.findByMembersEntityId(userId);
-    }
-
-    // 유저 상세 일기 조회
-    public DiaryEntity findMyDiary(Long userId, Long diaryId) {
-        return diaryRepo.findByMembersEntityIdAndId(userId, diaryId);
-    }
-
-    // 공개 일기 조회
-    public List<DiaryEntity> findAllPublicDiary() {
-        return diaryRepo.findByPublicOnIsTrue();
-    }
-
-    // 공개 일기 상세 조회
-    public DiaryEntity findPublicDiary(Long diaryId) {
-        return diaryRepo.findByPublicOnIsTrueAndId(diaryId);
-    }
 }
