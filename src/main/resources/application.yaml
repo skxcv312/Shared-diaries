@@ -1,6 +1,9 @@
 spring:
   application:
     name: study
-#
+
+  config:
+    import: secrets.yml
+  #
   profiles:
     include: local
