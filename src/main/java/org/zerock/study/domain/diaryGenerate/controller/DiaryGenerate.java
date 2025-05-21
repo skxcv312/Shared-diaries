@@ -22,7 +22,7 @@ public class DiaryGenerate {
 
         String CompletedSeries = diaryGenerateService.completeDiaryIntegration(diary);
 
-        return ResponseEntity.ok(CompletedSeries);
+        return ResponseEntity.ok(new GenerateDiaryResponse(CompletedSeries));
     }
 
 
