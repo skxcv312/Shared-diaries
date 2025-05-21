@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.study.domain.auth.DTO.RefreshRequest;
 import org.zerock.study.domain.auth.DTO.SigninRequest;
+import org.zerock.study.domain.auth.DTO.SigningResponse;
 import org.zerock.study.domain.auth.DTO.SignupRequest;
 import org.zerock.study.domain.auth.service.AuthService;
 import org.zerock.study.global.jwtToken.JwtTokenDTO;
@@ -22,10 +23,13 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody SigninRequest signinRequest) {
         JwtTokenDTO jwtTokenDTO = authService.signin(signinRequest);
+
+        SigningResponse signingResponse = new SigningResponse(jwtTokenDTO.accessToken(), jwtTokenDTO.refreshToken());
+
         HttpHeaders headers = jwtTokenProvider.setTokenToHeader(jwtTokenDTO);
         return ResponseEntity.ok()
                 .headers(headers)
-                .build();
+                .body(signingResponse);
     }
 
     // 회원가입
