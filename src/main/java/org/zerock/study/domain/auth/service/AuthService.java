@@ -9,6 +9,7 @@ import org.zerock.study.domain.auth.entity.MembersEntity;
 import org.zerock.study.domain.auth.repository.MemberRepo;
 import org.zerock.study.global.jwtToken.JwtTokenDTO;
 import org.zerock.study.global.jwtToken.JwtTokenProvider;
+import org.zerock.study.global.jwtToken.Role;
 import org.zerock.study.global.util.HashUtils;
 
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class AuthService {
         MembersEntity membersEntity = MembersEntity.builder()
                 .email(signupRequest.email())
                 .password(hashedPassword)
+                .role(Role.ROLE_USER)
                 .build();
 
         memberRepo.save(membersEntity);
