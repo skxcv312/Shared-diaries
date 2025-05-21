@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.study.domain.diary.DTO.request.DiaryRequest.createDiaryRequest;
 import org.zerock.study.domain.diary.DTO.request.DiaryRequest.updateDiaryRequest;
-import org.zerock.study.domain.diary.Service.DiaryService;
+import org.zerock.study.domain.diary.service.DiaryService;
 import org.zerock.study.domain.diary.entity.DiaryEntity;
 import org.zerock.study.global.jwtToken.JwtTokenProvider.MemberTokenInfo;
 import org.zerock.study.global.jwtToken.MemberContext;
@@ -22,7 +22,7 @@ import org.zerock.study.global.jwtToken.MemberContext;
 @RequestMapping("/diaries")
 @RequiredArgsConstructor
 public class DiaryController {
-    final DiaryService diaryService;
+    private final DiaryService diaryService;
 
     // 새로운 일기 생성
     @PostMapping("")

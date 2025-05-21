@@ -1,4 +1,4 @@
-package org.zerock.study.domain.diary.Service;
+package org.zerock.study.domain.diary.service;
 
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
