@@ -1,11 +1,11 @@
-package org.zerock.study.domain.user.controller;
+package org.zerock.study.domain.profile.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.study.domain.entity.MembersEntity;
+import org.zerock.study.domain.auth.entity.MembersEntity;
 import org.zerock.study.global.jwtToken.MemberContext;
 
 @RestController

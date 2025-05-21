@@ -1,4 +1,4 @@
-package org.zerock.study.domain.entity;
+package org.zerock.study.domain.diary.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.zerock.study.global.BaseTimeEntity;
+import org.zerock.study.domain.auth.entity.MembersEntity;
+import org.zerock.study.global.common.entity.BaseTimeEntity;
 
 @Entity
 @Getter

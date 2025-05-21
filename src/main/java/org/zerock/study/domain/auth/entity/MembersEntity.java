@@ -1,4 +1,4 @@
-package org.zerock.study.domain.entity;
+package org.zerock.study.domain.auth.entity;
 
 
 import jakarta.persistence.*;
@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.zerock.study.global.BaseTimeEntity;
+import org.zerock.study.global.common.entity.BaseTimeEntity;
 
 @Getter
 @Entity
@@ -25,4 +25,6 @@ public class MembersEntity extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+
 }
+

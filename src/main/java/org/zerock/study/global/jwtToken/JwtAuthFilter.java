@@ -11,7 +11,7 @@ import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.zerock.study.domain.entity.MembersEntity;
+import org.zerock.study.domain.auth.entity.MembersEntity;
 
 @Component
 @RequiredArgsConstructor

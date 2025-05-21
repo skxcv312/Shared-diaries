@@ -10,9 +10,10 @@ import org.springframework.http.ResponseCookie;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import org.zerock.study.config.JwtConfig;
-import org.zerock.study.domain.entity.MembersEntity;
-import org.zerock.study.domain.repository.MemberRepo;
+import org.zerock.study.global.config.JwtConfig;
+import org.zerock.study.domain.auth.DTO.JwtTokenDTO;
+import org.zerock.study.domain.auth.entity.MembersEntity;
+import org.zerock.study.domain.auth.repository.MemberRepo;
 import org.zerock.study.global.util.JsonUtils;
 
 

@@ -1,4 +1,4 @@
-package org.zerock.study.config;
+package org.zerock.study.global.config;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

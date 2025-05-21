@@ -13,9 +13,9 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.study.domain.diary.DTO.DiaryRequest.createDiaryRequest;
 import org.zerock.study.domain.diary.DTO.DiaryRequest.updateDiaryRequest;
-import org.zerock.study.domain.entity.DiaryEntity;
-import org.zerock.study.domain.entity.MembersEntity;
-import org.zerock.study.domain.repository.DiaryRepo;
+import org.zerock.study.domain.diary.entity.DiaryEntity;
+import org.zerock.study.domain.auth.entity.MembersEntity;
+import org.zerock.study.domain.diary.repository.DiaryRepo;
 
 @SpringBootTest
 class DiaryServiceTest {

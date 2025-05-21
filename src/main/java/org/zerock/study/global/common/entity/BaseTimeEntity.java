@@ -1,11 +1,10 @@
-package org.zerock.study.global;
+package org.zerock.study.global.common.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.relational.core.mapping.Column;
 
 import java.time.LocalDateTime;
 

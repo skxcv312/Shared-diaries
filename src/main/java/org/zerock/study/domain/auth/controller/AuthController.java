@@ -1,14 +1,14 @@
-package org.zerock.study.domain.user.controller;
+package org.zerock.study.domain.auth.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.study.domain.user.DTO.RefreshRequest;
-import org.zerock.study.domain.user.DTO.SigninRequest;
-import org.zerock.study.domain.user.DTO.SignupRequest;
-import org.zerock.study.domain.user.service.AuthService;
-import org.zerock.study.global.jwtToken.JwtTokenDTO;
+import org.zerock.study.domain.auth.DTO.RefreshRequest;
+import org.zerock.study.domain.auth.DTO.SigninRequest;
+import org.zerock.study.domain.auth.DTO.SignupRequest;
+import org.zerock.study.domain.auth.service.AuthService;
+import org.zerock.study.domain.auth.DTO.JwtTokenDTO;
 import org.zerock.study.global.jwtToken.JwtTokenProvider;
 
 @RestController()

@@ -1,10 +1,9 @@
-package org.zerock.study.domain.repository;
+package org.zerock.study.domain.diary.repository;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.zerock.study.domain.entity.DiaryEntity;
+import org.zerock.study.domain.diary.entity.DiaryEntity;
 
 @Repository
 public interface DiaryRepo extends JpaRepository<DiaryEntity, Long> {
