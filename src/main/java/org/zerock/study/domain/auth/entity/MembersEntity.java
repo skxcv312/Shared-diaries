@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.zerock.study.global.common.entity.BaseTimeEntity;
+import org.zerock.study.global.jwtToken.Role;
 
 @Getter
 @Entity
@@ -25,6 +26,8 @@ public class MembersEntity extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private Role role;
 
 }
 
