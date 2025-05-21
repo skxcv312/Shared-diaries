@@ -51,36 +51,4 @@ public class DiaryController {
         diaryService.deleteDiary(diaryId);
         return ResponseEntity.ok().build();
     }
-
-    // 내가 작성한 모든 일기 조회
-    @GetMapping("/me")
-    public ResponseEntity<?> getMyDiaries() {
-        MemberTokenInfo memberTokenInfo = MemberContext.get();
-        Long userId = memberTokenInfo.userId();
-        List<DiaryEntity> diaryEntityList = diaryService.findAllMyDiary(userId);
-        return ResponseEntity.ok(diaryEntityList);
-    }
-
-    // 내가 작성한 특정 일기 조회
-    @GetMapping("/me/{diaryId}")
-    public ResponseEntity<?> getMyDiaryById(@PathVariable Long diaryId) {
-        MemberTokenInfo memberTokenInfo = MemberContext.get();
-        Long userId = memberTokenInfo.userId();
-        DiaryEntity diaryEntityList = diaryService.findMyDiary(userId, diaryId);
-        return ResponseEntity.ok(diaryEntityList);
-    }
-
-    // 공개된 모든 일기 조회
-    @GetMapping("/public")
-    public ResponseEntity<?> getPublicDiaries() {
-        List<DiaryEntity> diaryEntityList = diaryService.findAllPublicDiary();
-        return ResponseEntity.ok(diaryEntityList);
-    }
-
-    // 공개된 특정 일기 조회
-    @GetMapping("/public/{diaryId}")
-    public ResponseEntity<?> getPublicDiaryById(@PathVariable Long diaryId) {
-        DiaryEntity diaryEntity = diaryService.findPublicDiary(diaryId);
-        return ResponseEntity.ok(diaryEntity);
-    }
 }
