@@ -2,6 +2,7 @@ package org.zerock.study.domain.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import org.zerock.study.global.BaseTimeEntity;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "members")
 public class MembersEntity extends BaseTimeEntity {
@@ -21,11 +24,5 @@ public class MembersEntity extends BaseTimeEntity {
 
     @Column(nullable = false, unique = true)
     private String email;
-
-    @Builder
-    public MembersEntity(String password, String email) {
-        this.password = password;
-        this.email = email;
-    }
 
 }
