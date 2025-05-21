@@ -1,4 +1,4 @@
-package org.zerock.study.domain.Diary.Service;
+package org.zerock.study.domain.diary.Service;
 
 import java.util.List;
 import java.util.Objects;
@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.study.domain.Diary.DTO.DiaryRequest.createDiaryRequest;
-import org.zerock.study.domain.Diary.DTO.DiaryRequest.updateDiaryRequest;
+import org.zerock.study.domain.diary.DTO.DiaryRequest.createDiaryRequest;
+import org.zerock.study.domain.diary.DTO.DiaryRequest.updateDiaryRequest;
 import org.zerock.study.domain.entity.DiaryEntity;
 import org.zerock.study.domain.entity.MembersEntity;
 import org.zerock.study.domain.repository.DiaryRepo;

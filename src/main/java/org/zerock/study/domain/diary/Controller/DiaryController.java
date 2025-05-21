@@ -1,4 +1,4 @@
-package org.zerock.study.domain.Diary.Controller;
+package org.zerock.study.domain.diary.Controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.study.domain.Diary.DTO.DiaryRequest.createDiaryRequest;
-import org.zerock.study.domain.Diary.DTO.DiaryRequest.updateDiaryRequest;
-import org.zerock.study.domain.Diary.Service.DiaryService;
+import org.zerock.study.domain.diary.DTO.DiaryRequest.createDiaryRequest;
+import org.zerock.study.domain.diary.DTO.DiaryRequest.updateDiaryRequest;
+import org.zerock.study.domain.diary.Service.DiaryService;
 import org.zerock.study.domain.entity.DiaryEntity;
 import org.zerock.study.domain.entity.MembersEntity;
 import org.zerock.study.global.jwtToken.MemberContext;

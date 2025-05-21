@@ -1,8 +1,7 @@
-package org.zerock.study.domain.Diary.DTO;
+package org.zerock.study.domain.diary.DTO;
 
 
 import lombok.Builder;
-import org.zerock.study.domain.entity.MembersEntity;
 
 public class DiaryRequest {
 
