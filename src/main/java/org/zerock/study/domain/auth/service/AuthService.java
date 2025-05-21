@@ -7,7 +7,7 @@ import org.zerock.study.domain.auth.DTO.SigninRequest;
 import org.zerock.study.domain.auth.DTO.SignupRequest;
 import org.zerock.study.domain.auth.entity.MembersEntity;
 import org.zerock.study.domain.auth.repository.MemberRepo;
-import org.zerock.study.domain.auth.DTO.JwtTokenDTO;
+import org.zerock.study.global.jwtToken.JwtTokenDTO;
 import org.zerock.study.global.jwtToken.JwtTokenProvider;
 import org.zerock.study.global.util.HashUtils;
 

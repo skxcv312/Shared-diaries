@@ -1,4 +1,4 @@
-package org.zerock.study.domain.auth.DTO;
+package org.zerock.study.global.jwtToken;
 
 import lombok.Builder;
 
