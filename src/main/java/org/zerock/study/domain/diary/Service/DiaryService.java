@@ -35,7 +35,7 @@ public class DiaryService {
     // 유저 찾기
     public MembersEntity findMemberById(Long id) {
         return memberRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Member Id is not exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Member Id is not exist"));
     }
 
 
