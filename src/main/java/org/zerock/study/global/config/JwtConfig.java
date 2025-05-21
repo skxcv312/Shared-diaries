@@ -10,15 +10,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 public class JwtConfig {
-    @Value("${jwt.secret-key}")
-    String secret;
+
 
     private final Key secretKey;
 
     private final long accessTokenValidTime = 30 * 24 * 60 * 60 * 1000L; // 1h
     private final long refreshTokenValidTime = 24 * 60 * 60 * 1000L; //1 day
 
-    public JwtConfig() {
+    public JwtConfig(@Value("${jwt.secret-key}") String secret) {
         this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 

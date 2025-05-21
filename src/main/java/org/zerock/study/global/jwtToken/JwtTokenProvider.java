@@ -38,7 +38,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .subject(user.getEmail())
-                .claim("id", user.getId().toString())
+                .claim("id", user.getId())
                 .claim("role", user.getRole().name())
                 .issuedAt(now) // 토큰 발행 시간 정보
                 .expiration(new Date(now.getTime() + jwtConfig.getAccessTokenValidTime())) // 토큰 유효시각 설정
