@@ -1,6 +1,7 @@
 package org.zerock.study.global.jwtToken;
 
 import io.jsonwebtoken.*;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,6 @@ import org.zerock.study.global.config.JwtConfig;
 import org.zerock.study.domain.auth.DTO.JwtTokenDTO;
 import org.zerock.study.domain.auth.entity.MembersEntity;
 import org.zerock.study.domain.auth.repository.MemberRepo;
-import org.zerock.study.global.util.JsonUtils;
 
 
 @Slf4j
@@ -23,15 +23,24 @@ import org.zerock.study.global.util.JsonUtils;
 public class JwtTokenProvider {
     private final MemberRepo memberRepo;
     private final JwtConfig jwtConfig;
-    private final JsonUtils jsonUtils;
+
+
+    @Builder
+    public record MemberTokenInfo(
+            Long userId,
+            String email,
+            Role role
+    ) {
+    }
+
 
     private String setAccessToken(MembersEntity user) {
         Date now = new Date();
-        String userJson = jsonUtils.toJson(user);
 
         return Jwts.builder()
                 .subject(user.getEmail())
-                .claim("userInfo", userJson) // 정보 저장
+                .claim("id", user.getId().toString())
+                .claim("role", user.getRole().name())
                 .issuedAt(now) // 토큰 발행 시간 정보
                 .expiration(new Date(now.getTime() + jwtConfig.getAccessTokenValidTime())) // 토큰 유효시각 설정
                 .signWith(jwtConfig.getSecretKey())  // 암호화 알고리즘과, secret 값
@@ -59,22 +68,25 @@ public class JwtTokenProvider {
 
     // 리프레시토큰으로 엑세스토큰얻기
     public JwtTokenDTO getTokenWithRefresh(String refreshToken) {
-        String userEmail = getUserInfo(refreshToken);
+        String userEmail = validateToken(refreshToken).getSubject();
         MembersEntity user = memberRepo.findMembersByEmail(userEmail);
         return createToken(user);
     }
 
-    // 인증 정보 조회
-    public MembersEntity getAuthentication(String token) {
-        String userEmail = getUserInfo(token);
-        return memberRepo.findMembersByEmail(userEmail);
+    // 인증 정보 조회 가져오기
+    public MemberTokenInfo getAuthentication(String token) {
+        Claims userClaims = validateToken(token);
+        String email = userClaims.getSubject();
+        String roleString = userClaims.get("role", String.class);
+        Role role = roleString != null ? Role.valueOf(roleString) : null;
+        Long id = userClaims.get("id", Long.class);
+        return MemberTokenInfo.builder()
+                .email(email)
+                .role(role)
+                .userId(id)
+                .build();
     }
 
-    // 토큰에서 회원 이메일 정보 추출
-    public String getUserInfo(String token) {
-        Claims claims = validateToken(token);
-        return claims.getSubject();
-    }
 
     // 토큰 유효성, 만료일자 확인
     public Claims validateToken(String token) {

@@ -1,15 +1,16 @@
 package org.zerock.study.global.jwtToken;
 
 import org.zerock.study.domain.auth.entity.MembersEntity;
+import org.zerock.study.global.jwtToken.JwtTokenProvider.MemberTokenInfo;
 
 public class MemberContext {
-    private static final ThreadLocal<MembersEntity> loginMember = new ThreadLocal<>();
+    private static final ThreadLocal<MemberTokenInfo> loginMember = new ThreadLocal<>();
 
-    public static void set(MembersEntity member) {
+    public static void set(MemberTokenInfo member) {
         loginMember.set(member);
     }
 
-    public static MembersEntity get() {
+    public static MemberTokenInfo get() {
         return loginMember.get();
     }
 
